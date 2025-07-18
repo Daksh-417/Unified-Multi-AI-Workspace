@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+  <h3>2025 Daksh. All rights reserved.<h3>
   <h1>Unified Multi-AI Workspace<br>
     <small style="color:#444;font-size:22px;">Dual-Platform Delivery: Desktop & Web</small>
   </h1>
