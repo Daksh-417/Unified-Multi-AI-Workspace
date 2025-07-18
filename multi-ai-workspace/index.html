@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Workspace Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar__header">
+                <h2 class="sidebar__title">AI Workspace</h2>
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
+            <div class="sidebar__menu">
+                <button class="nav-item nav-item--active" data-view="dashboard">
+                    <span class="nav-icon">📊</span>
+                    Dashboard
+                </button>
+                <button class="nav-item" data-view="projects">
+                    <span class="nav-icon">📁</span>
+                    Projects
+                </button>
+                <button class="nav-item" data-view="ai-hub">
+                    <span class="nav-icon">🤖</span>
+                    AI Hub
+                </button>
+                <button class="nav-item" data-view="chat">
+                    <span class="nav-icon">💬</span>
+                    Chat
+                </button>
+                <button class="nav-item" data-view="analytics">
+                    <span class="nav-icon">📈</span>
+                    Analytics
+                </button>
+                <button class="nav-item" data-view="workflows">
+                    <span class="nav-icon">⚡</span>
+                    Workflows
+                </button>
+                <button class="nav-item" data-view="settings">
+                    <span class="nav-icon">⚙️</span>
+                    Settings
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="header-actions">
+                    <button class="btn btn--primary" id="createProjectBtn">
+                        + New Project
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard View -->
+            <div class="view view--active" id="dashboard">
+                <div class="dashboard-grid">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Projects</h3>
+                            <div class="stat-value">3</div>
+                            <div class="stat-change">+2 this month</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>AI Requests</h3>
+                            <div class="stat-value">2,140</div>
+                            <div class="stat-change">+15% this week</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Cost</h3>
+                            <div class="stat-value">$214.80</div>
+                            <div class="stat-change">$42.30 this month</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Active Models</h3>
+                            <div class="stat-value">7</div>
+                            <div class="stat-change">Connected</div>
+                        </div>
+                    </div>
+
+                    <div class="recent-projects">
+                        <h2>Recent Projects</h2>
+                        <div class="projects-list" id="recentProjects"></div>
+                    </div>
+
+                    <div class="activity-feed">
+                        <h2>Recent Activity</h2>
+                        <div class="activity-list" id="recentActivity"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects View -->
+            <div class="view" id="projects">
+                <div class="view-header">
+                    <h2>All Projects</h2>
+                    <button class="btn btn--secondary" id="newProjectBtn">Create Project</button>
+                </div>
+                <div class="projects-grid" id="projectsGrid"></div>
+            </div>
+
+            <!-- AI Hub View -->
+            <div class="view" id="ai-hub">
+                <div class="view-header">
+                    <h2>AI Integration Hub</h2>
+                    <button class="btn btn--secondary" id="connectAiBtn">Connect Service</button>
+                </div>
+                <div class="ai-services-grid" id="aiServicesGrid"></div>
+            </div>
+
+            <!-- Chat View -->
+            <div class="view" id="chat">
+                <div class="chat-container">
+                    <div class="chat-sidebar">
+                        <div class="chat-header">
+                            <h3>Projects</h3>
+                        </div>
+                        <div class="chat-projects-list" id="chatProjectsList"></div>
+                    </div>
+                    <div class="chat-main">
+                        <div class="chat-controls">
+                            <select class="form-control" id="modelSelect">
+                                <option value="gpt-4">GPT-4</option>
+                                <option value="claude-3">Claude 3</option>
+                                <option value="gemini-pro">Gemini Pro</option>
+                            </select>
+                            <button class="btn btn--outline" id="clearChatBtn">Clear Chat</button>
+                        </div>
+                        <div class="chat-messages" id="chatMessages"></div>
+                        <div class="chat-input">
+                            <input type="text" class="form-control" id="messageInput" placeholder="Type your message...">
+                            <button class="btn btn--primary" id="sendMessageBtn">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics View -->
+            <div class="view" id="analytics">
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Usage Over Time</h3>
+                        <canvas id="usageChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Model Usage Distribution</h3>
+                        <canvas id="modelChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Cost Breakdown</h3>
+                        <div class="cost-breakdown" id="costBreakdown"></div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Performance Metrics</h3>
+                        <div class="metrics-list" id="performanceMetrics"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflows View -->
+            <div class="view" id="workflows">
+                <div class="view-header">
+                    <h2>Workflow Builder</h2>
+                    <button class="btn btn--secondary" id="createWorkflowBtn">Create Workflow</button>
+                </div>
+                <div class="workflows-grid" id="workflowsGrid"></div>
+            </div>
+
+            <!-- Settings View -->
+            <div class="view" id="settings">
+                <div class="settings-grid">
+                    <div class="settings-section">
+                        <h3>API Keys</h3>
+                        <div class="settings-card">
+                            <div class="form-group">
+                                <label class="form-label">OpenAI API Key</label>
+                                <input type="password" class="form-control" placeholder="sk-...">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Anthropic API Key</label>
+                                <input type="password" class="form-control" placeholder="sk-ant-...">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Google AI API Key</label>
+                                <input type="password" class="form-control" placeholder="AIza...">
+                            </div>
+                            <button class="btn btn--primary">Save Keys</button>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Preferences</h3>
+                        <div class="settings-card">
+                            <div class="form-group">
+                                <label class="form-label">Default AI Model</label>
+                                <select class="form-control">
+                                    <option value="gpt-4">GPT-4</option>
+                                    <option value="claude-3">Claude 3</option>
+                                    <option value="gemini-pro">Gemini Pro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Theme</label>
+                                <select class="form-control" id="themeSelect">
+                                    <option value="system">System</option>
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                </select>
+                            </div>
+                            <button class="btn btn--primary">Save Preferences</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Creating Projects -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Project</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Project Name</label>
+                    <input type="text" class="form-control" id="projectName" placeholder="Enter project name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" id="projectDescription" placeholder="Enter project description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">AI Models</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" value="gpt-4"> GPT-4</label>
+                        <label><input type="checkbox" value="claude-3"> Claude 3</label>
+                        <label><input type="checkbox" value="gemini-pro"> Gemini Pro</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--outline" id="cancelProject">Cancel</button>
+                <button class="btn btn--primary" id="createProject">Create Project</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
